@@ -9,7 +9,7 @@ class Processor
   from_queue "TestQueue"
   
   def work(msg)
-    parsedMessage = JSON.parse(msg) # returns a hash value
+    parsedMessage = JSON.parse(msg) # returns a hash value and second change
 
     puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
     ack!
