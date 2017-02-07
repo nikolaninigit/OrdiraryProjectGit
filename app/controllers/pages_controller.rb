@@ -4,7 +4,7 @@ require 'sneakers/runner'
 class PagesController < ApplicationController
     def index
  
-        @instanceState="<Instance status>"
+        @instanceState="<Instance status status>"
     end
     
 end
