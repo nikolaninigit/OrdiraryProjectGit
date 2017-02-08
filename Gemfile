@@ -29,6 +29,7 @@ gem 'bunny'
 #sneakers
 gem 'sneakers'
 
+gem 'responders'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

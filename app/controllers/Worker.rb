@@ -17,23 +17,15 @@ Sneakers.configure(opts)
 class Processor
   include Sneakers::Worker
   from_queue "TestQueue"
-  #:amqp => 'amqp://nvmlsxgx:YNkBAzaOuZotz3Zve0TL9w-oiEqrw0bZ@hyena.rmq.cloudamqp.com/nvmlsxgx',
-  #:exchange_type => 'direct',
-  #:durable=>false,
-  #:exchange => 'sneakers',
-  #:start_worker_delay => 10
     
   
   def work(msg)
-    parsedMessage = JSON.parse(msg) # returns a hash value and second change
-
+    parsedMessage = JSON.parse(msg) 
     puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
     ack!
   end
   
 end
 
-
 r = Sneakers::Runner.new([Processor])
 r.run 
-

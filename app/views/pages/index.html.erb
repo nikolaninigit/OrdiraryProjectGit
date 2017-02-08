@@ -1,1 +1,22 @@
-<h1>My instance is <%=@instanceState%> </h1>
+
+
+<h1> Instance state is: <span id="h1"><%= $tmpData %></span>  </h1>
+
+
+<script type="text/javascript">
+
+    var instanceStateCall = function()
+    {
+        $.get("/pages/instanceState", function (data) {
+            $("#h1").html(data);
+        }).fail(function (error) {
+            console.log(error);
+        });
+    }
+    
+    $(function(){
+      setInterval(instanceStateCall, 3000);
+    });
+    
+</script>
+
