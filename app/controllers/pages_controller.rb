@@ -1,9 +1,3 @@
-require 'sneakers' # don't forget to put gem "sneakers" in your Gemfile
-require 'sneakers/runner'
-require "rubygems"
-require "json"
-
-
 
 class PagesController < ApplicationController
     respond_to :html, :js
@@ -16,15 +10,6 @@ class PagesController < ApplicationController
         
     end
     
-    
-    def show_options
-    end
-    
-    def hide_options
-    end
-    
-    def download
-    end
     
     def instanceState
         $tmpData=Random.rand(1...100)
