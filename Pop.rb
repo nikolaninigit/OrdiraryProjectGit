@@ -1,5 +1,6 @@
 #mora da ide prvo gem install bunny iz konzole
 
+=begin
 require "bunny" # don't forget to put gem "bunny" in your Gemfile
 
 connection = Bunny.new ENV['CLOUDAMQP_URL']
@@ -19,3 +20,4 @@ else
 end
 
 connection.stop # close the connection
+=end

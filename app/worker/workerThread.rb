@@ -1,6 +1,8 @@
+require "active_record"
+require "./app/models/remote_machine"
 require "rubygems"
 require "json"
-require 'sneakers' # put gem "sneakers" in your Gemfile
+require 'sneakers' 
 require 'sneakers/runner'
 
 opts = {
@@ -13,6 +15,11 @@ opts = {
 
 Sneakers.configure(opts)
 
+ActiveRecord::Base.establish_connection(
+    "adapter" => "sqlite3",
+    "database"  => "db/development.sqlite3"
+  )
+
 
 class Processor
   include Sneakers::Worker
@@ -20,12 +27,25 @@ class Processor
     
   
   def work(msg)
-    parsedMessage = JSON.parse(msg) 
+    parsedMessage = JSON.parse(msg)
+    
+    instanceCode=parsedMessage["InstanceCode"]
+    instanceStatus=parsedMessage["InstanceStatus"]
+    
     puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
+    
+    if(RemoteMachine.where(instanceId: instanceCode).count==0)
+      RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
+    else
+      remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
+      remoteInstance.instanceState=instanceStatus
+      remoteInstance.save
+    end
+    
     ack!
   end
   
 end
 
-#r = Sneakers::Runner.new([Processor])
-#r.run 
+r = Sneakers::Runner.new([Processor])
+r.run 

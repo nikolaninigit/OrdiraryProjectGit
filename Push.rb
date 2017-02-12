@@ -1,6 +1,7 @@
 #mora da ide prvo gem install bunny iz konzole
 # skripta za slanje i citanje iz queue-a
 
+=begin
 require "bunny" # don't forget to put gem "bunny" in your Gemfile
 
 connection = Bunny.new ENV['CLOUDAMQP_URL']
@@ -16,3 +17,4 @@ ch.default_exchange.publish(messageToSend, :routing_key => q.name)
 
 
 connection.stop # close the connection
+=end

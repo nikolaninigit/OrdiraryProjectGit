@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'pages#index'
-  get  'pages/instanceState' => 'pages#instanceState', as: :instance_state
+  root 'remote_machines#index'
+  get  'remote_machines/instanceState' => 'remote_machines#instanceState', as: :instance_state
+  
+  #get  'pages/instanceState' => 'pages#instanceState', as: :instance_state
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

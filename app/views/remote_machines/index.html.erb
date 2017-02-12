@@ -1,15 +1,12 @@
-<%=@id%>
-<br/>
-<%=@oneUser%>
+<h1>Nikola</h1>
 
-<h1> My instance is: <span id="s1"><%= $tmpData %></span>  </h1>
-
+<h1> My instance is: <span id="s1"><%= $machineState %></span>  </h1>
 
 <script type="text/javascript">
 
     var instanceStateCall = function()
     {
-        $.get("/pages/instanceState", function (data) {
+        $.get("/remote_machines/instanceState", function (data) {
             datatype:'text'
             $("#s1").html(data);
         }).fail(function (error) {
@@ -22,4 +19,3 @@
     });
     
 </script>
-
