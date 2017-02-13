@@ -1,9 +1,12 @@
+require "./config/environment"
+
 class RemoteMachinesController < ApplicationController
     respond_to :html, :js
     
     $machineState="Unknown"
     $machineCode=""
     $tmp="nikola"
+    $env=Rails.env
     
     def index
         #if(params.has_key?(:id))
