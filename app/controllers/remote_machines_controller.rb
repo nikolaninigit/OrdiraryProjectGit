@@ -2,9 +2,15 @@ class RemoteMachinesController < ApplicationController
     respond_to :html, :js
     
     $machineState="Unknown"
+    $machineCode=""
+    $tmp="nikola"
     
     def index
-        
+        #if(params.has_key?(:id))
+        #    $machineCode=params['id']
+        #else
+        #    $machineCode=""
+        #end
     end
     
     def instanceState
@@ -14,6 +20,10 @@ class RemoteMachinesController < ApplicationController
            else
             $machineState=RemoteMachine.first.instanceState
         end
+        
+        #if($machineCode=="")
+         #   $tmp="changedtext"
+        #end
         
         render text: $machineState
     end

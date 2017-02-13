@@ -1,4 +1,5 @@
 
+=begin
 require "active_record"
 require "./app/models/user"
 
@@ -10,8 +11,7 @@ ActiveRecord::Base.establish_connection(
     "database"  => "db/development.sqlite3"
   )
 
-# i-012345shju
-# Running
+require 'config/environment'
 
 nameText="name2"
 bioText="promenjenopromenjeno"
@@ -25,3 +25,6 @@ else
     instance.bio="promenjeno promenjeno"
     instance.save
 end
+=end
+
+puts "Nikola"
