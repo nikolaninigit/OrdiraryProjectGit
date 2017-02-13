@@ -23,9 +23,9 @@ if Rails.env=="development"
     )
 end
 
-RemoteMachine.create(instanceId: "idCustomNew", instanceState: "statusCustomNew")
+#RemoteMachine.create(instanceId: "idCustomNew", instanceState: "statusCustomNew")
 
-class Processor8
+class Processor
   include Sneakers::Worker
   from_queue "TestQueue"
     

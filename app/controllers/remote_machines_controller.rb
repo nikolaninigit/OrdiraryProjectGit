@@ -4,30 +4,36 @@ class RemoteMachinesController < ApplicationController
     respond_to :html, :js
     
     $machineState="Unknown"
-    $machineCode=""
-    $tmp="nikola"
+    $searchId=""
     $env=Rails.env
     
     def index
-        #if(params.has_key?(:id))
-        #    $machineCode=params['id']
-        #else
-        #    $machineCode=""
-        #end
+        if(params.has_key?(:id))
+            $searchId=params['id']
+        else
+            $searchId=""
+        end
     end
     
     def instanceState
+        
         $numberOfRecords=RemoteMachine.all.count;
-        if($numberOfRecords==0)
-            $machineState="Unknown"
-           else
-            $machineState=RemoteMachine.first.instanceState
-        end
-        
-        #if($machineCode=="")
-         #   $tmp="changedtext"
-        #end
-        
+            if($numberOfRecords==0)
+                $machineState="Unknown"
+            else
+                if $searchId == ""
+                    $machineState=RemoteMachine.first.instanceState
+                else
+                    $numberWithId=RemoteMachine.where(instanceId: $searchId).count
+                    if $numberWithId==1
+                        $tmpElem=RemoteMachine.where(instanceId: $searchId).take
+                        $machineState=$tmpElem.instanceState
+                    else
+                        $machineState="Unknown"
+                    end
+                end
+            end
+
         render text: $machineState
     end
     
