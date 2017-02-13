@@ -1,9 +1,10 @@
+require "active_record"
 require "./app/models/remote_machine"
 require "rubygems"
-require "active_record"
 require "json"
 require 'sneakers' 
 require 'sneakers/runner'
+require "./config/environment"
 
 opts = {
   :amqp => 'amqp://nvmlsxgx:YNkBAzaOuZotz3Zve0TL9w-oiEqrw0bZ@hyena.rmq.cloudamqp.com/nvmlsxgx',
@@ -33,15 +34,15 @@ class Processor
     instanceCode=parsedMessage["InstanceCode"]
     instanceStatus=parsedMessage["InstanceStatus"]
     
-    puts "Instance with id:"+instanceCode +" is in state: "+instanceState
+    puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
     
-    #if(RemoteMachine.where(instanceId: instanceCode).count==0)
-    #  RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
-    #else
-    #  remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
-    #  remoteInstance.instanceState=instanceStatus
-    #  remoteInstance.save
-    #end
+    if(RemoteMachine.where(instanceId: instanceCode).count==0)
+      RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
+    else
+      remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
+      remoteInstance.instanceState=instanceStatus
+      remoteInstance.save
+    end
     
     ack!
   end
