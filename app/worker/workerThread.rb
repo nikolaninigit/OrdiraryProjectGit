@@ -47,5 +47,5 @@ class Processor
   
 end
 
-r = Sneakers::Runner.new([Processor])
-r.run 
+#r = Sneakers::Runner.new([Processor])
+#r.run 
