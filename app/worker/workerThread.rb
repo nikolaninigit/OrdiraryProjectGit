@@ -1,6 +1,6 @@
-require "active_record"
 require "./app/models/remote_machine"
 require "rubygems"
+require "active_record"
 require "json"
 require 'sneakers' 
 require 'sneakers/runner'
@@ -13,13 +13,14 @@ opts = {
   :start_worker_delay => 10
 }
 
-#Sneakers.configure(opts)
+Sneakers.configure(opts)
 
-#ActiveRecord::Base.establish_connection(
-#    "adapter" => "sqlite3",
-#    "database"  => "db/development.sqlite3"
-#  )
-
+if Rails.env=="development"
+  ActiveRecord::Base.establish_connection(
+      "adapter" => "sqlite3",
+      "database"  => "db/development.sqlite3"
+    )
+end
 
 class Processor
   include Sneakers::Worker
@@ -47,5 +48,7 @@ class Processor
   
 end
 
-#r = Sneakers::Runner.new([Processor])
-#r.run 
+if Rails.env=="development"
+  r = Sneakers::Runner.new([Processor])
+  r.run 
+end
