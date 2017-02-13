@@ -13,7 +13,7 @@ opts = {
   :start_worker_delay => 10
 }
 
-Sneakers.configure(opts)
+#Sneakers.configure(opts)
 
 #ActiveRecord::Base.establish_connection(
 #    "adapter" => "sqlite3",
