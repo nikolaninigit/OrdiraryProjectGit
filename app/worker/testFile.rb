@@ -1,17 +1,18 @@
-
 =begin
+require "./config/environment"
 require "active_record"
 require "./app/models/user"
 
 
 puts "Nikola"
+puts  Rails.env=="development"
+=end
 
+=begin
 ActiveRecord::Base.establish_connection(
     "adapter" => "sqlite3",
     "database"  => "db/development.sqlite3"
   )
-
-require 'config/environment'
 
 nameText="name2"
 bioText="promenjenopromenjeno"
@@ -27,4 +28,3 @@ else
 end
 =end
 
-puts "Nikola"

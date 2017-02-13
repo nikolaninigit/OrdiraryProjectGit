@@ -15,10 +15,10 @@ opts = {
 
 Sneakers.configure(opts)
 
-ActiveRecord::Base.establish_connection(
-    "adapter" => "sqlite3",
-    "database"  => "db/development.sqlite3"
-  )
+#ActiveRecord::Base.establish_connection(
+#    "adapter" => "sqlite3",
+#    "database"  => "db/development.sqlite3"
+#  )
 
 
 class Processor
@@ -32,15 +32,15 @@ class Processor
     instanceCode=parsedMessage["InstanceCode"]
     instanceStatus=parsedMessage["InstanceStatus"]
     
-    puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
+    puts "Instance with id:"+instanceCode +" is in state: "+instanceState
     
-    if(RemoteMachine.where(instanceId: instanceCode).count==0)
-      RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
-    else
-      remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
-      remoteInstance.instanceState=instanceStatus
-      remoteInstance.save
-    end
+    #if(RemoteMachine.where(instanceId: instanceCode).count==0)
+    #  RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
+    #else
+    #  remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
+    #  remoteInstance.instanceState=instanceStatus
+    #  remoteInstance.save
+    #end
     
     ack!
   end
