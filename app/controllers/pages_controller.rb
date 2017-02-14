@@ -9,9 +9,6 @@ class PagesController < ApplicationController
         if(params.has_key?(:id))
             @id=params['id']
         end
-        
-        #@s= 'id111'
-        #@oneUser=User.where(name: @s).take.bio
     end
     
     

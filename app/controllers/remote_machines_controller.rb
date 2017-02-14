@@ -5,7 +5,6 @@ class RemoteMachinesController < ApplicationController
     
     $machineState="Unknown"
     $searchId=""
-    $env=Rails.env
     
     def index
         if(params.has_key?(:id))

@@ -23,7 +23,6 @@ if Rails.env=="development"
     )
 end
 
-#RemoteMachine.create(instanceId: "idCustomNew", instanceState: "statusCustomNew")
 
 class Processor
   include Sneakers::Worker
@@ -38,7 +37,7 @@ class Processor
     
     puts "Instance with id:"+parsedMessage["InstanceCode"] +" is in state: "+parsedMessage["InstanceStatus"]
     
-    if(RemoteMachine.where(instanceId: instanceCode).count==0)
+    if RemoteMachine.where(instanceId: instanceCode).count==0
       RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
     else
       remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
