@@ -54,6 +54,6 @@ class Processor
 end
 
 #if Rails.env=="development"
-  r = Sneakers::Runner.new([Processor])
-  r.run 
+  #r = Sneakers::Runner.new([Processor])
+  #r.run 
 #end
