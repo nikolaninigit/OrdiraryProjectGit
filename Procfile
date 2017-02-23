@@ -1,2 +1,2 @@
-web: rails server -p $PORT
-worker: bin/rails runner ./app/worker/workerThread.rb 
+web: rails server -p $PORT -b $IP
+worker: bundle exec rake sneakers:run
