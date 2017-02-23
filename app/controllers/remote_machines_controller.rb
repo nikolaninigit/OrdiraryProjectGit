@@ -3,8 +3,10 @@ require "./config/environment"
 class RemoteMachinesController < ApplicationController
     respond_to :html, :js
     
+    $machineId=""
     $machineState="Unknown"
     $searchId=""
+    $returnInfo="Getting information about the instance state..."
     
     def index
         if(params.has_key?(:id))
@@ -15,25 +17,27 @@ class RemoteMachinesController < ApplicationController
     end
     
     def instanceState
-        
         $numberOfRecords=RemoteMachine.all.count;
             if($numberOfRecords==0)
-                $machineState="Unknown"
+                $returnInfo="DB is empty - no information about any instance"
             else
                 if $searchId == ""
+                    $machineId=RemoteMachine.first.instanceId
                     $machineState=RemoteMachine.first.instanceState
+                    $returnInfo = "Instance <"+$machineId+"> is in state "+$machineState
                 else
-                    $numberWithId=RemoteMachine.where(instanceId: $searchId).count
-                    if $numberWithId==1
-                        $tmpElem=RemoteMachine.where(instanceId: $searchId).take
-                        $machineState=$tmpElem.instanceState
+                    if RemoteMachine.where(instanceId: $searchId).count==1
+                        $tmpInstance=RemoteMachine.where(instanceId: $searchId).take
+                        $machineState=$tmpInstance.instanceState
+                        $machineId=$tmpInstance.instanceId
+                        $returnInfo = "Instance <"+$machineId+"> is in state "+$machineState
                     else
-                        $machineState="Unknown"
+                        $returnInfo = "Information about instance <"+$searchId+"> is not present in the DB"
                     end
                 end
             end
 
-        render text: $machineState
+        render text: $returnInfo 
     end
     
     

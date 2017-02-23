@@ -11,7 +11,10 @@ opts = {
   :exchange_type => 'direct',
   :durable=>false,
   :exchange => 'sneakers',
-  :start_worker_delay => 10
+  :start_worker_delay => 10,
+  :threads => 1,
+  :workers => 1,
+  :heartbeat=>2
 }
 
 Sneakers.configure(opts)
@@ -24,7 +27,7 @@ if Rails.env=="development"
 end
 
 
-RemoteMachine.create(instanceId: "12345", instanceState: "status12345")
+#RemoteMachine.create(instanceId: "12345", instanceState: "status12345")
 
 
 class Processor
@@ -42,6 +45,8 @@ class Processor
     
     if RemoteMachine.where(instanceId: instanceCode).count==0
       RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
+      #remoteInstance= RemoteMachine.new(instanceId: instanceCode, instanceState: instanceStatus)
+      #remoteInstance.save
     else
       remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
       remoteInstance.instanceState=instanceStatus
@@ -54,6 +59,6 @@ class Processor
 end
 
 #if Rails.env=="development"
-  #r = Sneakers::Runner.new([Processor])
-  #r.run 
+  r = Sneakers::Runner.new([Processor])
+  r.run 
 #end
