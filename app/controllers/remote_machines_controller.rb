@@ -24,13 +24,13 @@ class RemoteMachinesController < ApplicationController
                 if $searchId == ""
                     $machineId=RemoteMachine.first.instanceId
                     $machineState=RemoteMachine.first.instanceState
-                    $returnInfo = "Instance bla &lt;"+$machineId+"&gt; is in state "+$machineState
+                    $returnInfo = "Instance "+$machineId+" is in state "+$machineState
                 else
                     if RemoteMachine.where(instanceId: $searchId).count==1
                         $tmpInstance=RemoteMachine.where(instanceId: $searchId).take
                         $machineState=$tmpInstance.instanceState
                         $machineId=$tmpInstance.instanceId
-                        $returnInfo = "Instance &lt;"+$machineId+"&gt; is in state "+$machineState
+                        $returnInfo = "Instance "+$machineId+" is in state "+$machineState
                     else
                         $returnInfo = "Information about instance <"+$searchId+"> is not present in the DB"
                     end
