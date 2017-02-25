@@ -19,22 +19,11 @@ opts = {
 
 Sneakers.configure(opts)
 
-if Rails.env=="development"
-  ActiveRecord::Base.establish_connection(
-      "adapter" => "sqlite3",
-      "database"  => "db/development.sqlite3"
-    )
-end
-
-
-#RemoteMachine.create(instanceId: "12345", instanceState: "status12345")
-
 
 class Processor
   include Sneakers::Worker
   from_queue "TestQueue"
     
-  
   def work(msg)
     parsedMessage = JSON.parse(msg)
     
@@ -45,20 +34,12 @@ class Processor
     
     if RemoteMachine.where(instanceId: instanceCode).count==0
       RemoteMachine.create(instanceId: instanceCode, instanceState: instanceStatus)
-      #remoteInstance= RemoteMachine.new(instanceId: instanceCode, instanceState: instanceStatus)
-      #remoteInstance.save
     else
       remoteInstance=RemoteMachine.where(instanceId: instanceCode).take
       remoteInstance.instanceState=instanceStatus
       remoteInstance.save
     end
-    
     ack!
   end
   
 end
-
-#if Rails.env=="development"
-# r = Sneakers::Runner.new([Processor])
-#  r.run 
-#end
