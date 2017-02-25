@@ -21,7 +21,7 @@ class RemoteMachinesController < ApplicationController
             if($numberOfRecords==0)
                 $returnInfo="DB is empty - no information about any instance"
             else
-                if $searchId == ""
+                if params['id'] == ""
                     $machineId=RemoteMachine.first.instanceId
                     $machineState=RemoteMachine.first.instanceState
                     $returnInfo = "Instance "+$machineId+" is in state "+$machineState
